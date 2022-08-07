@@ -11,16 +11,16 @@ import SpringAnimation
 class MainViewController: UIViewController {
     
     @IBOutlet weak var springAnimationView: SpringView!
-    @IBOutlet weak var animationLabel: UILabel!
+    @IBOutlet weak var animationLabel: UILabel! {
+        didSet {
+            animationLabel.text = animation.fullInformation
+        }
+    }
     
     private var animation = Animation.getAnimation()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        animationLabel.text = animation.fullInformation
-    }
-    
     @IBAction func runButton(_ sender: UIButton) {
+        animationLabel.text = animation.fullInformation
         setAnimation()
         
         animation = Animation.getAnimation()
@@ -30,12 +30,12 @@ class MainViewController: UIViewController {
 
 extension MainViewController {
     private func setAnimation() {
-        animationLabel.text = animation.fullInformation
+
         springAnimationView.animation = animation.preset
-        springAnimationView.force = CGFloat(animation.force)
+        springAnimationView.force = animation.force
         springAnimationView.curve = animation.curve
-        springAnimationView.duration = CGFloat(animation.duration)
-        springAnimationView.delay = CGFloat(animation.delay)
+        springAnimationView.duration = animation.duration
+        springAnimationView.delay = animation.delay
         springAnimationView.animate()
     }
 }
